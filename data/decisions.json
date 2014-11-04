@@ -1,0 +1,14 @@
+[
+  {
+    "key": "lights",
+    "question": "Are your lights on?",
+    "choices": {"yes": 0.7, "no": 0.3},
+    "parents": []
+  },
+  {
+    "key": "happy",
+    "question": "Are you happy with your current job?",
+    "choices": {"yes": 0.1, "no": 0.9},
+    "parents": ["lights"]
+  },
+]

@@ -19833,15 +19833,17 @@ module.exports = require('./lib/React');
 
 },{"./lib/React":45}],164:[function(require,module,exports){
 /** @jsx React.DOM */
-var React                 = require('react');
-var AppLayout             = require('./layouts/app-layout');
+var React     = require('react');
+var AppLayout = require('./layouts/app-layout');
 
-var Router                = require('react-router-component');
-var Locations             = Router.Locations;
-var Location              = Router.Location;
-var NotFound              = Router.NotFound;
+var Router    = require('react-router-component');
+var Locations = Router.Locations;
+var Location  = Router.Location;
+var NotFound  = Router.NotFound;
 
-var Welcome = require('./welcome/index');
+var Welcome   = require('./welcome/index');
+var Question  = require('./questions/show');
+var Result    = require('./results/show');
 
 var APP = React.createClass({displayName: 'APP',
   render: function() {
@@ -19849,7 +19851,9 @@ var APP = React.createClass({displayName: 'APP',
        AppLayout(null, 
          Locations({
           onNavigation: this.handleNavigation}, 
-           Location({path: "/", handler: Welcome}), 
+            Location({path: "/", handler: Welcome}), 
+            Location({path: "/survey", handler: Question}), 
+            Location({path: "/results", handler: Result}), 
            NotFound({handler: Welcome})
          )
        )
@@ -19860,7 +19864,7 @@ var APP = React.createClass({displayName: 'APP',
 
 module.exports = APP;
 
-},{"./layouts/app-layout":165,"./welcome/index":167,"react":163,"react-router-component":4}],165:[function(require,module,exports){
+},{"./layouts/app-layout":165,"./questions/show":166,"./results/show":167,"./welcome/index":168,"react":163,"react-router-component":4}],165:[function(require,module,exports){
 /** @jsx React.DOM */
 var React = require('react');
 
@@ -19883,45 +19887,65 @@ module.exports = AppLayout;
 },{"react":163}],166:[function(require,module,exports){
 /** @jsx React.DOM */
 var React = require('react');
+var Link  = require('react-router-component').Link;
 
 var Question = React.createClass({displayName: 'Question',
   render: function() {
     return (
       React.DOM.div({id: "question"}, 
-				React.DOM.h2(null, "Are you currently paid market rates?"), 
-	      React.DOM.form(null, 
-	        React.DOM.div({className: "row"}, 
-	          React.DOM.div({className: "small-4 columns"}, 
-	            React.DOM.button({className: "tiny"}, "Yes")
-	          ), 
-	          React.DOM.div({className: "small-4 columns"}, 
-	            React.DOM.button({className: "tiny"}, "Maybe")
-	          ), 
-	          React.DOM.div({className: "small-4 columns"}, 
-	            React.DOM.button({className: "tiny"}, "No")
-	          )
-	        )
-      	)
-			)
+        React.DOM.h2(null, "Are you currently paid market rates?"), 
+        React.DOM.form(null, 
+          React.DOM.div({className: "row"}, 
+            React.DOM.div({className: "small-4 columns"}, 
+              React.DOM.button({className: "tiny"}, "Yes")
+            ), 
+            React.DOM.div({className: "small-4 columns"}, 
+              React.DOM.button({className: "tiny"}, "Maybe")
+            ), 
+            React.DOM.div({className: "small-4 columns"}, 
+              React.DOM.button({className: "tiny"}, "No")
+            )
+          )
+        ), 
+        React.DOM.div({className: "restart"}, Link({href: "/"}, "Start Over"))
+      )
     )
   }
 });
 
 module.exports = Question;
 
-},{"react":163}],167:[function(require,module,exports){
+},{"react":163,"react-router-component":4}],167:[function(require,module,exports){
 /** @jsx React.DOM */
 var React = require('react');
+
+var Summary = React.createClass({displayName: 'Summary',
+  render: function() {
+    return (
+      React.DOM.h1(null, "Here are your results")
+
+			
+    )
+  }
+});
+
+module.exports = Summary;
+
+},{"react":163}],168:[function(require,module,exports){
+/** @jsx React.DOM */
+var React    = require('react');
 var Question = require('../questions/show')
+var Link     = require('react-router-component').Link;
 
 var Welcome = React.createClass({displayName: 'Welcome',
   render: function() {
     return (
       React.DOM.div({id: "welcome", className: "row"}, 
         React.DOM.div({className: "small-12 columns"}, 
-          React.DOM.h1(null, "Worth Switching?"), 
           React.DOM.p(null, "You're thinking about leaving your job.  Should you stay or should you go?"), 
-					Question(null)
+          Link({href: "/survey"}, 
+            React.DOM.button(null, "Ready to Start?")
+          )
         )
       )
     )
@@ -19930,7 +19954,7 @@ var Welcome = React.createClass({displayName: 'Welcome',
 
 module.exports = Welcome;
 
-},{"../questions/show":166,"react":163}],168:[function(require,module,exports){
+},{"../questions/show":166,"react":163,"react-router-component":4}],169:[function(require,module,exports){
 /** @jsx React.DOM */
 var APP = require('./components/app');
 var React = require('react');
@@ -19939,4 +19963,4 @@ React.renderComponent(
   APP(null),
   document.getElementById('main'));
 
-},{"./components/app":164,"react":163}]},{},[168])
+},{"./components/app":164,"react":163}]},{},[169])
