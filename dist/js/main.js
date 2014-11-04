@@ -19860,7 +19860,7 @@ var APP = React.createClass({displayName: 'APP',
 
 module.exports = APP;
 
-},{"./layouts/app-layout":165,"./welcome/index":166,"react":163,"react-router-component":4}],165:[function(require,module,exports){
+},{"./layouts/app-layout":165,"./welcome/index":167,"react":163,"react-router-component":4}],165:[function(require,module,exports){
 /** @jsx React.DOM */
 var React = require('react');
 
@@ -19884,6 +19884,36 @@ module.exports = AppLayout;
 /** @jsx React.DOM */
 var React = require('react');
 
+var Question = React.createClass({displayName: 'Question',
+  render: function() {
+    return (
+      React.DOM.div({id: "question"}, 
+				React.DOM.h2(null, "Are you currently paid market rates?"), 
+	      React.DOM.form(null, 
+	        React.DOM.div({className: "row"}, 
+	          React.DOM.div({className: "small-4 columns"}, 
+	            React.DOM.button({className: "tiny"}, "Yes")
+	          ), 
+	          React.DOM.div({className: "small-4 columns"}, 
+	            React.DOM.button({className: "tiny"}, "Maybe")
+	          ), 
+	          React.DOM.div({className: "small-4 columns"}, 
+	            React.DOM.button({className: "tiny"}, "No")
+	          )
+	        )
+      	)
+			)
+    )
+  }
+});
+
+module.exports = Question;
+
+},{"react":163}],167:[function(require,module,exports){
+/** @jsx React.DOM */
+var React = require('react');
+var Question = require('../questions/show')
+
 var Welcome = React.createClass({displayName: 'Welcome',
   render: function() {
     return (
@@ -19891,23 +19921,7 @@ var Welcome = React.createClass({displayName: 'Welcome',
         React.DOM.div({className: "small-12 columns"}, 
           React.DOM.h1(null, "Worth Switching?"), 
           React.DOM.p(null, "You're thinking about leaving your job.  Should you stay or should you go?"), 
-
-          React.DOM.h2(null, "Are you currently paid market rates?"), 
-
-          React.DOM.form(null, 
-            React.DOM.div({className: "row"}, 
-              React.DOM.div({className: "small-4 columns"}, 
-                React.DOM.button({className: "tiny"}, "Yes")
-              ), 
-              React.DOM.div({className: "small-4 columns"}, 
-                React.DOM.button({className: "tiny"}, "Maybe")
-              ), 
-              React.DOM.div({className: "small-4 columns"}, 
-                React.DOM.button({className: "tiny"}, "No")
-              )
-            )
-          )
-
+					Question(null)
         )
       )
     )
@@ -19916,7 +19930,7 @@ var Welcome = React.createClass({displayName: 'Welcome',
 
 module.exports = Welcome;
 
-},{"react":163}],167:[function(require,module,exports){
+},{"../questions/show":166,"react":163}],168:[function(require,module,exports){
 /** @jsx React.DOM */
 var APP = require('./components/app');
 var React = require('react');
@@ -19925,4 +19939,4 @@ React.renderComponent(
   APP(null),
   document.getElementById('main'));
 
-},{"./components/app":164,"react":163}]},{},[167])
+},{"./components/app":164,"react":163}]},{},[168])
