@@ -27,6 +27,10 @@ body {
   background: white;
 }
 
+#value-question input {
+  margin-top: 2em;
+}
+
 .restart {
   margin-top: 3em;
 }

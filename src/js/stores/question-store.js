@@ -7,7 +7,17 @@ var QuestionStore = Reflux.createStore({
   },
   handleAnswer: function(answer) {
     // TODO: Find the next question and return that
-    return this.trigger({id: 2, title: "What is your favorite color?"});
+
+    console.log(answer);
+
+    var question = {
+      id: 2,
+      title: "What is your favorite color?",
+      type: "discrete",
+      values: {"red": "Red", "yellow": "Yellow"}
+    }
+
+    return this.trigger(question);
   },
 });
 
