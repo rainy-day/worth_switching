@@ -20778,7 +20778,12 @@ var QuestionActions = require('../../actions/question-actions');
 var Question = React.createClass({displayName: 'Question',
   mixins: [Reflux.ListenerMixin],
   getInitialState: function() {
-    return {};
+    return {
+      question: {
+        id: 1,
+        title: "Are you currently paid market rates?"
+      }
+    };
   },
   componentDidMount: function() {
     this.listenTo(QuestionStore, this.updateQuestion);
@@ -20788,25 +20793,27 @@ var Question = React.createClass({displayName: 'Question',
     return true;
   },
   handleAnswer: function(event) {
+    event.preventDefault();
     var target = event.target;
-    var value = target.textContent
-    QuestionActions.answer(value);
+    var answer = target.value;
+    var question = this.state.question;
+    QuestionActions.answer({questionId: question.id, answer: answer});
     return true;
   },
   render: function() {
-    var question = this.state.question || {title: "Are you currently paid market rates?"};
+    var question = this.state.question;
     return (
       React.DOM.div({id: "question"}, 
         React.DOM.h2(null, question.title), 
         React.DOM.div({className: "row"}, 
           React.DOM.div({className: "small-4 columns"}, 
-            React.DOM.button({className: "tiny", onClick: this.handleAnswer}, "Yes")
+            React.DOM.button({className: "tiny", onClick: this.handleAnswer, value: "yes"}, "Yes")
           ), 
           React.DOM.div({className: "small-4 columns"}, 
-            React.DOM.button({className: "tiny", onClick: this.handleAnswer}, "Maybe")
+            React.DOM.button({className: "tiny", onClick: this.handleAnswer, value: "maybe"}, "Maybe")
           ), 
           React.DOM.div({className: "small-4 columns"}, 
-            React.DOM.button({className: "tiny", onClick: this.handleAnswer}, "No")
+            React.DOM.button({className: "tiny", onClick: this.handleAnswer, value: "no"}, "No")
           )
         ), 
         React.DOM.div({className: "restart"}, Link({href: "/"}, "Start Over"))
@@ -20840,6 +20847,10 @@ var Question = require('../questions/show')
 var Link     = require('react-router-component').Link;
 
 var Welcome = React.createClass({displayName: 'Welcome',
+  getInitialState: function() {
+    // TODO: Set the decision logic to a good starting point.
+    return {};
+  },
   render: function() {
     return (
       React.DOM.div({id: "welcome", className: "row"}, 
@@ -20874,8 +20885,8 @@ var QuestionStore = Reflux.createStore({
     this.listenTo(QuestionActions.answer, this.handleAnswer);
   },
   handleAnswer: function(answer) {
-    // TODO: Send this to the server
-    return this.trigger({title: "What is your favorite color?"});
+    // TODO: Find the next question and return that
+    return this.trigger({id: 2, title: "What is your favorite color?"});
   },
 });
 

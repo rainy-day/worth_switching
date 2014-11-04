@@ -4,6 +4,10 @@ var Question = require('../questions/show')
 var Link     = require('react-router-component').Link;
 
 var Welcome = React.createClass({
+  getInitialState: function() {
+    // TODO: Set the decision logic to a good starting point.
+    return {};
+  },
   render: function() {
     return (
       <div id="welcome" className="row">

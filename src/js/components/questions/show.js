@@ -8,7 +8,12 @@ var QuestionActions = require('../../actions/question-actions');
 var Question = React.createClass({
   mixins: [Reflux.ListenerMixin],
   getInitialState: function() {
-    return {};
+    return {
+      question: {
+        id: 1,
+        title: "Are you currently paid market rates?"
+      }
+    };
   },
   componentDidMount: function() {
     this.listenTo(QuestionStore, this.updateQuestion);
@@ -18,25 +23,27 @@ var Question = React.createClass({
     return true;
   },
   handleAnswer: function(event) {
+    event.preventDefault();
     var target = event.target;
-    var value = target.textContent
-    QuestionActions.answer(value);
+    var answer = target.value;
+    var question = this.state.question;
+    QuestionActions.answer({questionId: question.id, answer: answer});
     return true;
   },
   render: function() {
-    var question = this.state.question || {title: "Are you currently paid market rates?"};
+    var question = this.state.question;
     return (
       <div id="question">
         <h2>{question.title}</h2>
         <div className="row">
           <div className="small-4 columns">
-            <button className="tiny" onClick={this.handleAnswer}>Yes</button>
+            <button className="tiny" onClick={this.handleAnswer} value="yes">Yes</button>
           </div>
           <div className="small-4 columns">
-            <button className="tiny" onClick={this.handleAnswer}>Maybe</button>
+            <button className="tiny" onClick={this.handleAnswer} value="maybe">Maybe</button>
           </div>
           <div className="small-4 columns">
-            <button className="tiny" onClick={this.handleAnswer}>No</button>
+            <button className="tiny" onClick={this.handleAnswer} value="no">No</button>
           </div>
         </div>
         <div className="restart"><Link href="/">Start Over</Link></div>

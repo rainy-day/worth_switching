@@ -6,8 +6,8 @@ var QuestionStore = Reflux.createStore({
     this.listenTo(QuestionActions.answer, this.handleAnswer);
   },
   handleAnswer: function(answer) {
-    // TODO: Send this to the server
-    return this.trigger({title: "What is your favorite color?"});
+    // TODO: Find the next question and return that
+    return this.trigger({id: 2, title: "What is your favorite color?"});
   },
 });
 
